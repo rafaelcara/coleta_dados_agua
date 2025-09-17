@@ -22,11 +22,11 @@ def filtrar_links(links, regra):
     return [urljoin(BASE_URL, link) for link in links if regra in link]
 
 def create_file(links):
-    files = []
+    list_files = []
     for link in links:
         file_name = link.split("/")[-1]
-        files.append((file_name, link))
-    return files
+        list_files.append((file_name, link))
+    return list_files
 
 
 def save_pkl(my_list):
