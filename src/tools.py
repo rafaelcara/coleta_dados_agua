@@ -1,11 +1,13 @@
-import os
 import pickle
-from bs4 import BeautifulSoup
 import urllib.request
+from pathlib import Path
 from urllib.parse import urljoin
+
 import wget
+from bs4 import BeautifulSoup
 
 from src.config import BASE_URL, RELATIVE_PATH, DOWNLOAD, PKL
+
 
 def get_links():
     '''
@@ -28,11 +30,10 @@ def filter_links_by_extension(links, extension):
     ]
 
 def create_file(links):
-    list_files = []
-    for link in links:
-        file_name = link.split("/")[-1]
-        list_files.append((file_name, link))
-    return list_files
+    """
+    Retorna uma lsita contendo o nome do arquivo e a URL.
+    """
+    return [(link.split("/")[-1], link) for link in links if link]
 
 
 def save_pkl(my_list):
@@ -46,10 +47,12 @@ def read_pkl():
     
 
 def save_file(url):
-    filename = wget.download(url, out=DOWNLOAD)
+    wget.download(url, out=DOWNLOAD)
 
 
 def list_files(directory):
-    all_entries = os.listdir(directory)
-    files_only = [f for f in all_entries if os.path.isfile(os.path.join(directory, f))]
-    return files_only
+    """
+    Retorna uma lista com os arquivos no diretório informado.
+    """
+    directory = Path(directory)
+    return [f for f in directory.iterdir() if f.is_file()]
