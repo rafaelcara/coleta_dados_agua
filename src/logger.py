@@ -1,4 +1,9 @@
-# app/logger.py
+###############################
+# LEMBRETE
+# ARQUIVO CRIADO POR IA
+# NECESSÁRIO ESTUDAR O CÓDIGO
+###############################
+
 import logging
 from logging.handlers import RotatingFileHandler
 import os
