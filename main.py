@@ -5,9 +5,13 @@ from src.logger import logger
 
 
 def main(use_pkl, limit):
+
     logger.info("Iniciando aplicação")
+
     data = collect_data(use_pkl, limit)
     data = process_data(data)
+
+    logger.info("Processamento finalizado")
 
 
 if __name__ == "__main__":
