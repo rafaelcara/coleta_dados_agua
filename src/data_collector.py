@@ -11,10 +11,14 @@ from src.config import DOWNLOAD
 
 
 def save_files(files, saved_files, limit):
-    c = 0
-    for _file, _url in files:
-        if _file not in saved_files:
-            save_file(_url)
+    for item in files:
+        name, url = item
+        if limit <= 0:
+            break
+        if name not in saved_files:
+            save_file(url)
+            limit -= 1
+
 
             
 
