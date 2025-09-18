@@ -1,6 +1,6 @@
 from src.tools import (
-    coletar_links,
-    filtrar_links,
+    get_links,
+    filter_links_by_extension,
     save_file,
     save_pkl,
     create_file,
@@ -22,8 +22,8 @@ def save_files(files, saved_files, limit):
 def collect_data(use_pkl, limit):
     if use_pkl.upper() == "N":
         print("Not PKL")
-        links = coletar_links()
-        links_filtrados = filtrar_links(links, regra=".xls")
+        links = get_links()
+        links_filtrados = filter_links_by_extension(links, extension=".xls")
         save_pkl(links_filtrados)
     else:
         links_filtrados = read_pkl()

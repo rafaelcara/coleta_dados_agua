@@ -7,19 +7,25 @@ import wget
 
 from src.config import BASE_URL, RELATIVE_PATH, DOWNLOAD, PKL
 
-def coletar_links():
-
+def get_links():
+    '''
+    Retorna uma lista com os links encontrados.
+    '''
     FULL_URL = urljoin(BASE_URL, RELATIVE_PATH)
-    html_page = urllib.request.urlopen(FULL_URL)
-    soup = BeautifulSoup(html_page, "html.parser")
-    links = []
-    for link in soup.findAll("a"):
-        links.append(link.get("href"))
-    return links
+    with urllib.request.urlopen(FULL_URL) as response:
+        soup = BeautifulSoup(response, "html.parser")
+    return [a.get("href") for a in soup.find_all("a") if a.get("href")]
 
 
-def filtrar_links(links, regra):
-    return [urljoin(BASE_URL, link) for link in links if regra in link]
+def filter_links_by_extension(links, extension):
+    """
+    Retorna uma lista com os links que contêm a extensão específicada.
+    """
+    return [
+        urljoin(BASE_URL, link)
+        for link in links
+        if link and extension in link
+    ]
 
 def create_file(links):
     list_files = []
