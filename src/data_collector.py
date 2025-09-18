@@ -11,16 +11,13 @@ from src.config import DOWNLOAD
 
 
 def save_files(files, saved_files, limit):
-    for item in files:
-        name, url = item
+    for name, url in files:
         if limit <= 0:
             break
         if name not in saved_files:
             save_file(url)
             limit -= 1
 
-
-            
 
 def collect_data(use_pkl, limit):
     if use_pkl.upper() == "N":
@@ -34,4 +31,3 @@ def collect_data(use_pkl, limit):
     files = create_file(links_filtrados)
     list_saved_files = list_files(DOWNLOAD)
     save_files(files, list_saved_files, limit)
-
