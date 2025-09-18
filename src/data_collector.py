@@ -7,10 +7,15 @@ from src.tools import (
     list_files,
     read_pkl,
 )
+from src.logger import logger
 from src.config import DOWNLOAD
 
 
+
 def save_files(files, saved_files, limit):
+    """
+    Faz o download do arquivo se ele ainda não foi baixado.
+    """
     for name, url in files:
         if limit <= 0:
             break
@@ -21,13 +26,12 @@ def save_files(files, saved_files, limit):
 
 def collect_data(use_pkl, limit):
     if use_pkl.upper() == "N":
-        print("Not PKL")
+        logger.info("Sem uso do arquivo .pkl")
         links = get_links()
         links_filtrados = filter_links_by_extension(links, extension=".xls")
         save_pkl(links_filtrados)
     else:
         links_filtrados = read_pkl()
-    print(links_filtrados)
     files = create_file(links_filtrados)
     list_saved_files = list_files(DOWNLOAD)
     save_files(files, list_saved_files, limit)

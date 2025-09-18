@@ -6,6 +6,7 @@ from urllib.parse import urljoin
 import wget
 from bs4 import BeautifulSoup
 
+from src.logger import logger
 from src.config import BASE_URL, RELATIVE_PATH, DOWNLOAD, PKL
 
 
@@ -42,6 +43,7 @@ def save_pkl(my_list):
 
 
 def read_pkl():
+    logger.info("Carregando .pkl")
     with open(PKL, "rb") as f:
         return pickle.load(f)
     
